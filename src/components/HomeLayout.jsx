@@ -8,14 +8,15 @@ export default () => {
   const outlet = useOutlet();
 
   if (user) {
-    return <Navigate to="/dashboard/profile" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (
     <Screen>
       <AppBar
         pages={[
-          { label: "Login", path: "/" },
+          { label: "Login", path: "/auth" },
+          { label: "Register", path: "/auth/register" }
         ]}
       />
       {outlet}

@@ -8,21 +8,27 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage("JWT", null);
   const navigate = useNavigate();
 
+  const register = (user) => {
+    setUser(user);
+    navigate("/", { replace: true });
+  };
+
   const login = async (data) => {
     setUser(data);
-    navigate("/dashboard/profile", { replace: true });
+    navigate("/", { replace: true });
   };
 
   const logout = () => {
     setUser(null);
-    navigate("/", { replace: true });
+    navigate("/auth", { replace: true });
   };
 
   const value = useMemo(
     () => ({
       user,
       login,
-      logout
+      logout,
+      register
     }),
     [user]
   );

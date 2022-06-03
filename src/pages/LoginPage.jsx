@@ -2,17 +2,16 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link as RouterLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default () => {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,6 +48,7 @@ export default () => {
             name="email"
             autoComplete="email"
             autoFocus
+            error={true}
           />
           <TextField
             margin="normal"
@@ -59,6 +59,7 @@ export default () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            error={true}
           />
           <Button
             type="submit"
@@ -68,15 +69,14 @@ export default () => {
           >
             Login In
           </Button>
-          <Grid container>
-            <Grid item>
-              <RouterLink to="/register">
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </RouterLink>
-            </Grid>
-          </Grid>
+          <Button
+            onClick={() => { navigate("/auth/register", { replace: true }); }}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Don't have an account? Sign Up
+          </Button>
         </Box>
       </Box>
     </Container>

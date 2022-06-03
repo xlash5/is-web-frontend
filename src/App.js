@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedLayout from "./components/ProtectedLayout";
 import HomeLayout from "./components/HomeLayout";
@@ -9,15 +10,20 @@ import Screen from "./components/Screen";
 export default function App() {
   return (
     <Routes>
-      <Route element={<HomeLayout />}>
-        <Route path="/" element={<LoginPage />} />
+      <Route path="/auth" element={<HomeLayout />}>
+        <Route path="" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
       </Route>
 
-      <Route path="/dashboard" element={<ProtectedLayout />}>
-        <Route path="profile" element={<ProfilePage />} />
+      <Route element={<ProtectedLayout />}>
+        <Route path="/" element={<ProfilePage />} />
       </Route>
+
       <Route path="*" element={<Screen>
-        <h1>404 Not Found</h1>
+        <div>
+          404 Not Found.
+          The page you are looking for does not exist.
+        </div>
       </Screen>} />
     </Routes>
   );
