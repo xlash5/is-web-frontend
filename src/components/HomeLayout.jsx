@@ -1,8 +1,9 @@
 import { Navigate, useOutlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { AppBar } from "./AppBar";
+import useAuth from "../hooks/useAuth";
+import AppBar from "./AppBar";
+import Screen from "./Screen";
 
-export const HomeLayout = () => {
+export default () => {
   const { user } = useAuth();
   const outlet = useOutlet();
 
@@ -11,14 +12,13 @@ export const HomeLayout = () => {
   }
 
   return (
-    <div>
+    <Screen>
       <AppBar
         pages={[
-          { label: "Home", path: "/" },
-          { label: "Login", path: "/login" }
+          { label: "Login", path: "/" },
         ]}
       />
       {outlet}
-    </div>
+    </Screen>
   );
 };

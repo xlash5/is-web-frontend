@@ -1,24 +1,24 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage } from "./pages/Login";
-import { HomePage } from "./pages/Home";
-import { ProfilePage } from "./pages/Profile";
-import { SettingsPage } from "./pages/Settings";
-import { ProtectedLayout } from "./components/ProtectedLayout";
-import { HomeLayout } from "./components/HomeLayout";
+import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
+import ProtectedLayout from "./components/ProtectedLayout";
+import HomeLayout from "./components/HomeLayout";
 import "./styles.css";
+import Screen from "./components/Screen";
 
 export default function App() {
   return (
     <Routes>
       <Route element={<HomeLayout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
       </Route>
 
       <Route path="/dashboard" element={<ProtectedLayout />}>
         <Route path="profile" element={<ProfilePage />} />
-        <Route path="settings" element={<SettingsPage />} />
       </Route>
+      <Route path="*" element={<Screen>
+        <h1>404 Not Found</h1>
+      </Screen>} />
     </Routes>
   );
 }

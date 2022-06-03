@@ -9,9 +9,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link as RouterLink } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
-export const LoginPage = () => {
+export default () => {
   const { login } = useAuth();
 
   const handleSubmit = (event) => {

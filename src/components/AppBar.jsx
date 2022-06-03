@@ -12,9 +12,9 @@ import Button from "@mui/material/Button";
 
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
-export const AppBar = ({ pages }) => {
+export default ({ pages }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -31,7 +31,7 @@ export const AppBar = ({ pages }) => {
   };
 
   return (
-    <MuiAppBar position="static">
+    <MuiAppBar position="static" style={{ backgroundColor: '#2F8F9D' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -40,7 +40,7 @@ export const AppBar = ({ pages }) => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            React Router Auth
+            App Name
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
