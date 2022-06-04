@@ -10,13 +10,23 @@ import useAuth from "../hooks/useAuth";
 
 export default () => {
     const { register } = useAuth();
+    const [loginError, setLoginError] = React.useState(false);
+    const [passwordError, setPasswordError] = React.useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        if (data.get("passwordRepeat") !== data.get("password")) {
+            setPasswordError(true);
+            return
+        }
         register({
-            email: data.get("email"),
+            username: data.get("username"),
             password: data.get("password")
+        }).then((res) => {
+            if (res == 0) {
+                setLoginError(true)
+            }
         });
     };
 
@@ -41,11 +51,12 @@ export default () => {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="Username"
+                        name="username"
                         autoFocus
+                        error={loginError}
+                        helperText={loginError ? "Username already in use!" : ""}
                     />
                     <TextField
                         margin="normal"
@@ -55,6 +66,8 @@ export default () => {
                         label="Password"
                         type="password"
                         id="password"
+                        error={passwordError}
+                        helperText={passwordError ? "Passwords do not match!" : ""}
                     />
                     <TextField
                         margin="normal"
@@ -64,6 +77,8 @@ export default () => {
                         label="Password Repeat"
                         type="password"
                         id="passwordRepeat"
+                        error={passwordError}
+                        helperText={passwordError ? "Passwords do not match!" : ""}
                     />
                     <Button
                         type="submit"

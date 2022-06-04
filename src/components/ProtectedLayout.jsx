@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 import AppBar from "./AppBar";
 import Screen from "./Screen";
 import api from "../api/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default () => {
   const { token } = useAuth();
@@ -11,19 +11,23 @@ export default () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  api.get("/api/v1/is-authenticated", {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  }).then((res) => {
-    if (res.status === 200 && res.data.result) {
-      setLoading(false);
-    } else {
+  useEffect(() => {
+    api.get("/api/v1/is-authenticated", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((res) => {
+      if (res.status === 200 && res.data.result) {
+        console.log("Authenticated");
+      } else {
+        navigate("/auth", { replace: true });
+      }
+    }).catch((err) => {
       navigate("/auth", { replace: true });
-    }
-  }).catch((err) => {
-    navigate("/auth", { replace: true });
-  });
+    }).finally(() => {
+      setLoading(false);
+    });
+  }, [token]);
 
 
   return (

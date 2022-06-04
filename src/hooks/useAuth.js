@@ -9,9 +9,18 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useLocalStorage("JWT", null);
   const navigate = useNavigate();
 
-  const register = (data) => {
-    setToken(data);
-    navigate("/", { replace: true });
+  const register = async (data) => {
+    try {
+      const response = await api.post("/api/v1/register", {
+        username: data.username,
+        password: data.password,
+      });
+      if (response.status === 201) {
+        await login(data);
+      }
+    } catch (error) {
+      return 0;
+    }
   };
 
   const login = async (data) => {
@@ -20,8 +29,10 @@ export const AuthProvider = ({ children }) => {
         username: data.username,
         password: data.password,
       });
-      setToken(response.data.access_token);
-      navigate("/", { replace: true });
+      if (response.status === 200) {
+        setToken(response.data.access_token);
+        navigate("/");
+      }
     } catch (error) {
       return 0;
     }

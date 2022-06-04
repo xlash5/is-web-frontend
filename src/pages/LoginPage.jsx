@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 export default () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [error, setError] = React.useState(false);
+  const [loginError, setLoginError] = React.useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,7 +22,7 @@ export default () => {
       password: data.get("password")
     }).then((res) => {
       if (res == 0) {
-        setError(true)
+        setLoginError(true)
       }
     });
   };
@@ -52,7 +52,8 @@ export default () => {
             label="Username"
             name="username"
             autoFocus
-            error={error}
+            error={loginError}
+            helperText={loginError ? "Invalid username or password" : ""}
           />
           <TextField
             margin="normal"
@@ -62,7 +63,8 @@ export default () => {
             label="Password"
             type="password"
             id="password"
-            error={error}
+            error={loginError}
+            helperText={loginError ? "Invalid username or password" : ""}
           />
           <Button
             type="submit"

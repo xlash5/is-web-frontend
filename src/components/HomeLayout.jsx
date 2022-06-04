@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 import AppBar from "./AppBar";
 import Screen from "./Screen";
 import api from "../api/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default () => {
   const { token } = useAuth();
@@ -11,20 +11,21 @@ export default () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  if (token) {
+  useEffect(() => {
     api.get("/api/v1/is-authenticated", {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     }).then(res => {
-      if (res.data.result) {
+      if (res.status === 200 && res.data.result) {
         navigate("/", { replace: true });
       }
-      setLoading(false);
     }).catch(err => {
+      console.log(err);
+    }).finally(() => {
       setLoading(false);
     });
-  }
+  }, [token]);
 
   return (
     <Screen>
@@ -34,7 +35,13 @@ export default () => {
           { label: "Register", path: "/auth/register" }
         ]}
       />
-      {outlet}
+      {
+        loading ?
+          <h1>Loading...</h1>
+          : <>
+
+            {outlet}
+          </>}
     </Screen>
   );
 };
