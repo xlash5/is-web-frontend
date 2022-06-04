@@ -25,7 +25,7 @@ export default () => {
     }).finally(() => {
       setLoading(false);
     });
-  }, [token]);
+  }, []);
 
   return (
     <Screen>

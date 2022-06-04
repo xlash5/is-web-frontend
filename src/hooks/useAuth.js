@@ -38,9 +38,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    setToken(null);
-    navigate("/auth", { replace: true });
+  const logout = async () => {
+    api.post("/api/v1/logout", {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    }).then(res => {
+      setToken(null);
+      navigate("/auth", { replace: true });
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   const value = useMemo(
