@@ -12,13 +12,18 @@ import { useNavigate } from "react-router-dom";
 export default () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = React.useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     login({
-      email: data.get("email"),
+      username: data.get("username"),
       password: data.get("password")
+    }).then((res) => {
+      if (res == 0) {
+        setError(true)
+      }
     });
   };
 
@@ -43,12 +48,11 @@ export default () => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
             autoFocus
-            error={true}
+            error={error}
           />
           <TextField
             margin="normal"
@@ -58,8 +62,7 @@ export default () => {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
-            error={true}
+            error={error}
           />
           <Button
             type="submit"

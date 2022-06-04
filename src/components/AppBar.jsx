@@ -17,7 +17,7 @@ import useAuth from "../hooks/useAuth";
 export default ({ pages }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { token, logout } = useAuth();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -80,7 +80,7 @@ export default ({ pages }) => {
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
-              {!!user && (
+              {!!token && (
                 <MenuItem key={"logout"} onClick={logout}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
@@ -105,7 +105,7 @@ export default ({ pages }) => {
                 {page.label}
               </Button>
             ))}
-            {!!user && (
+            {!!token && (
               <Button
                 key={"logout"}
                 onClick={logout}

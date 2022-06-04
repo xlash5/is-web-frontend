@@ -1,36 +1,45 @@
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from "./useLocalStorage";
+import api from '../api/api';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useLocalStorage("JWT", null);
+  const [token, setToken] = useLocalStorage("JWT", null);
   const navigate = useNavigate();
 
-  const register = (user) => {
-    setUser(user);
+  const register = (data) => {
+    setToken(data);
     navigate("/", { replace: true });
   };
 
   const login = async (data) => {
-    setUser(data);
-    navigate("/", { replace: true });
+    try {
+      const response = await api.post("/api/v1/login", {
+        username: data.username,
+        password: data.password,
+      });
+      setToken(response.data.access_token);
+      navigate("/", { replace: true });
+    } catch (error) {
+      return 0;
+    }
   };
 
   const logout = () => {
-    setUser(null);
+    setToken(null);
     navigate("/auth", { replace: true });
   };
 
   const value = useMemo(
     () => ({
-      user,
+      token,
       login,
       logout,
       register
     }),
-    [user]
+    [token]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
