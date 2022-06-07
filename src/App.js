@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import HomePage from "./pages/HomePage";
 import ProtectedLayout from "./components/ProtectedLayout";
 import HomeLayout from "./components/HomeLayout";
 import "./styles.css";
@@ -16,7 +17,8 @@ export default function App() {
       </Route>
 
       <Route element={<ProtectedLayout />}>
-        <Route path="/" element={<ProfilePage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="profile" element={<ProfilePage />} />
       </Route>
 
       <Route path="*" element={<Screen>

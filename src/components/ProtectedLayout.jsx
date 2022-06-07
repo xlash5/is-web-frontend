@@ -34,7 +34,8 @@ export default () => {
     <Screen>
       <AppBar
         pages={[
-          { label: "Profile", path: "/" }
+          { label: "Home", path: "/" },
+          { label: "Profile", path: "/profile" }
         ]}
       />
       {

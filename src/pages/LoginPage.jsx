@@ -43,7 +43,11 @@ export default () => {
         <Typography component="h1" variant="h5">
           Log In
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate
+          sx={{
+            mt: 1,
+            textAlign: "center"
+          }}>
           <TextField
             margin="normal"
             required
@@ -70,15 +74,15 @@ export default () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 1, mb: 2 }}
           >
             Login In
           </Button>
           <Button
             onClick={() => { navigate("/auth/register", { replace: true }); }}
             fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            variant="outlined"
+            sx={{ mt: 1, mb: 2, width: "75%" }}
           >
             Don't have an account? Sign Up
           </Button>
