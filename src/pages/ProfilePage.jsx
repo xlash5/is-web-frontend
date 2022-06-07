@@ -5,7 +5,7 @@ import api from "../api/api";
 
 export default () => {
   const { token } = useAuth();
-  const [userData, userDataLoading] = useUserData();
+  const [userData] = useUserData();
   const [userr, setUserr] = useState(null);
 
   const fetchUserByName = () => {
@@ -31,7 +31,7 @@ export default () => {
 
   return <>
     <h1>
-      {userDataLoading ? "No user data" : JSON.stringify(userData)}
+      {userData ? JSON.stringify(userData) : "No user data"}
     </h1>
     <p>
       {userr && JSON.stringify(userr)}

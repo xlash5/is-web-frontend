@@ -5,10 +5,8 @@ import api from "../api/api";
 export default () => {
     const { token } = useAuth();
     const [userData, setUserData] = useState(null);
-    const [userDataLoading, setUserDataLoading] = useState(true);
 
     const fetchUserData = () => {
-        setUserDataLoading(true);
         api.get("/api/v1/user", {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -17,8 +15,6 @@ export default () => {
             setUserData(res.data.result);
         }).catch((err) => {
             console.log(err);
-        }).finally(() => {
-            setUserDataLoading(false);
         });
     };
 
@@ -30,5 +26,5 @@ export default () => {
         }
     }, [token]);
 
-    return [userData, userDataLoading];
+    return [userData];
 };
