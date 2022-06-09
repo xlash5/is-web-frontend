@@ -8,6 +8,7 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
+import Drawer from '@mui/material/Drawer';
 
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
@@ -16,16 +17,15 @@ import useAuth from "../hooks/useAuth";
 const AppName = "My App";
 
 export default ({ pages }) => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const navigate = useNavigate();
   const { token, logout } = useAuth();
+  const [drawerState, setDrawerState] = React.useState(false);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
 
   const handleCloseNavMenu = (path) => {
-    setAnchorElNav(null);
     if (path) {
       navigate(path);
     }
@@ -43,50 +43,45 @@ export default ({ pages }) => {
           >
             {AppName}
           </Typography>
-
+          <Drawer
+            anchor='left'
+            open={drawerState}
+            onClose={() => setDrawerState(false)}
+          >
+            {pages?.map((page) => (
+              <MenuItem
+                key={page.label}
+                onClick={() => handleCloseNavMenu(page.path)}
+                sx={{
+                  minWidth: "40vw",
+                }}
+              >
+                <Typography textAlign="center">{page.label}</Typography>
+              </MenuItem>
+            ))}
+            {!!token && (
+              <MenuItem
+                key={'logout'}
+                onClick={logout}
+                sx={{
+                  minWidth: "40vw",
+                }}
+              >
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+            )}
+          </Drawer>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={() => setDrawerState(true)}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left"
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left"
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" }
-              }}
-            >
-              {pages?.map((page) => (
-                <MenuItem
-                  key={page.label}
-                  onClick={() => handleCloseNavMenu(page.path)}
-                >
-                  <Typography textAlign="center">{page.label}</Typography>
-                </MenuItem>
-              ))}
-              {!!token && (
-                <MenuItem key={"logout"} onClick={logout}>
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>
-              )}
-            </Menu>
           </Box>
           <Typography
             variant="h6"

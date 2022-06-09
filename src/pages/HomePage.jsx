@@ -9,17 +9,33 @@ const Card = styled.div`
     display: inline-block;
     padding: 10px;
     `;
+const ScreenContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    min-height: 100vh;
+    border-width: 0 1px 0 1px;
+    border-style: solid;
+    border-color: #ffffff40;
+    margin: 0 auto;
+    padding: 10px 0;
+    // tablet viewport
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+    `
 
 const HomePage = () => {
     const [user, setUser] = useLocalStorage("JWT", null);
     return (
         <>
-            <h1>
-                {user ? JSON.stringify(user) : "No user"}
-            </h1>
-            <Card>
-                <h1> HOME </h1>
-            </Card>
+            <ScreenContainer>
+                <Card>
+                    <h1>Welcome {user.username}</h1>
+                </Card>
+            </ScreenContainer>
+
         </>
     )
 }
