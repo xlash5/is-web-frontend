@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import Palette from '../theme/Palette'
 
 export default styled.div`
     min-width: 100vw;
     min-height: 100vh;
-    background-color: #B3E8E5;
+    background-color: ${Palette.first};
     overflow-wrap: break-word;
 `

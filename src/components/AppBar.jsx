@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
@@ -13,6 +12,8 @@ import Drawer from '@mui/material/Drawer';
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Palette from "../theme/Palette";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const AppName = "My App";
 
@@ -48,28 +49,38 @@ export default ({ pages }) => {
             open={drawerState}
             onClose={() => setDrawerState(false)}
           >
-            {pages?.map((page) => (
-              <MenuItem
-                key={page.label}
-                onClick={() => handleCloseNavMenu(page.path)}
-                sx={{
-                  minWidth: "40vw",
-                }}
-              >
-                <Typography textAlign="center">{page.label}</Typography>
-              </MenuItem>
-            ))}
-            {!!token && (
-              <MenuItem
-                key={'logout'}
-                onClick={logout}
-                sx={{
-                  minWidth: "40vw",
-                }}
-              >
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            )}
+            <div style={{
+              backgroundColor: Palette.first,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              paddingBottom: '10px',
+              minHeight: '100vh',
+            }}>
+              {pages?.map((page) => (
+                <MenuItem
+                  key={page.label}
+                  onClick={() => handleCloseNavMenu(page.path)}
+                  sx={{
+                    minWidth: "40vw",
+                    backgroundColor: Palette.third,
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                    borderColor: "#ffffff40",
+                    borderRadius: "4px",
+                    margin: "4px",
+                  }}
+                >
+                  <Typography textAlign="center">{page.label}</Typography>
+                </MenuItem>
+              ))}
+              {!!token && (
+                <Button
+                  variant="outlined" endIcon={<LogoutIcon />}>
+                  Logout
+                </Button>
+              )}
+            </div>
           </Drawer>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton

@@ -1,29 +1,33 @@
 import React from 'react'
 import useLocalStorage from "../hooks/useLocalStorage";
 import styled from '@emotion/styled'
+import Palette from '../theme/Palette'
+import Card from '../components/Card'
+import ScreenContainer from '../components/ScreenContainer'
+import TextField from '@mui/material/TextField';
 
-const Card = styled.div`
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    padding: 10px;
-    `;
-const ScreenContainer = styled.div`
+const LeftColumn = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 80%;
-    min-height: 100vh;
-    border-width: 0 1px 0 1px;
-    border-style: solid;
-    border-color: #ffffff40;
-    margin: 0 auto;
-    padding: 10px 0;
-    // tablet viewport
+    width: 60%;
+    height: '100%';
     @media (max-width: 768px) {
         width: 100%;
     }
+    `
+const RightColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: '100%';
+    @media (max-width: 768px) {
+        display: none;
+    }
+    `
+const NewPostContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     `
 
 const HomePage = () => {
@@ -31,9 +35,66 @@ const HomePage = () => {
     return (
         <>
             <ScreenContainer>
-                <Card>
-                    <h1>Welcome {user.username}</h1>
-                </Card>
+                <LeftColumn>
+                    <NewPostContainer>
+                        <Card>
+                            <h3>New Post</h3>
+                            <TextField
+                                label="Post"
+                                multiline
+                                rows={4}
+                                fullWidth
+                            />
+                        </Card>
+                    </NewPostContainer>
+                    <Card>
+                        <h1>Left Column</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Donec euismod, nisl eget consectetur sagittis, nisl
+                            nisi consectetur nisi, euismod consectetur nisi
+                            nisi euismod.
+                        </p>
+                    </Card>
+                    <Card>
+                        <h1>Left Column</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Donec euismod, nisl eget consectetur sagittis, nisl
+                            nisi consectetur nisi, euismod consectetur nisi
+                            nisi euismod.
+                        </p>
+                    </Card>
+                    <Card>
+                        <h1>Left Column</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Donec euismod, nisl eget consectetur sagittis, nisl
+                            nisi consectetur nisi, euismod consectetur nisi
+                            nisi euismod.
+                        </p>
+                    </Card>
+                </LeftColumn>
+                <RightColumn>
+                    <Card>
+                        <h1>Left Column</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Donec euismod, nisl eget consectetur sagittis, nisl
+                            nisi consectetur nisi, euismod consectetur nisi
+                            nisi euismod.
+                        </p>
+                    </Card>
+                    <Card>
+                        <h1>Left Column</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Donec euismod, nisl eget consectetur sagittis, nisl
+                            nisi consectetur nisi, euismod consectetur nisi
+                            nisi euismod.
+                        </p>
+                    </Card>
+                </RightColumn>
             </ScreenContainer>
 
         </>
