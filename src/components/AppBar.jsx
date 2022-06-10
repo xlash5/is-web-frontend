@@ -74,8 +74,12 @@ export default ({ pages }) => {
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
-              {!!token && (
+              {token && (
                 <Button
+                  onClick={logout}
+                  sx={{
+                    margin: "5px",
+                  }}
                   variant="outlined" endIcon={<LogoutIcon />}>
                   Logout
                 </Button>
@@ -112,7 +116,7 @@ export default ({ pages }) => {
                 {page.label}
               </Button>
             ))}
-            {!!token && (
+            {token && (
               <Button
                 key={"logout"}
                 onClick={logout}
