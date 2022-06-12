@@ -5,6 +5,8 @@ import Palette from '../theme/Palette'
 import Card from '../components/Card'
 import ScreenContainer from '../components/ScreenContainer'
 import NewPostCard from '../components/NewPostCard'
+import { firebaseApp } from '../api/firebase';
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 const LeftColumn = styled.div`
     display: flex;
@@ -31,10 +33,12 @@ const HomePage = () => {
     const [selectedImage, setSelectedImage] = useState("");
     const [selectedImageUrl, setSelectedImageUrl] = useState("");
     const [mediaError, setMediaError] = useState(false);
+    const storage = getStorage(firebaseApp, "gs://is-web-ca.appspot.com");
 
     const selectImage = (e) => {
+        console.log(e.target.files[0].type);
         setSelectedImage(e.target.files[0]);
-        if (e.target.files[0].size > 313100) {
+        if (e.target.files[0].size > 25000000) {
             setMediaError(true);
             return
         }
@@ -46,6 +50,17 @@ const HomePage = () => {
         reader.readAsDataURL(e.target.files[0]);
     }
 
+    const handleUploadImage = async () => {
+        const storageRef = ref(storage, `/media/${Math.floor(Math.random() * 1000000)}${Date.now()}${selectedImage.name}`);
+        await uploadBytes(storageRef, selectedImage).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        }).then(() => {
+            getDownloadURL(storageRef).then((url) => {
+                console.log(url);
+            });
+        });
+    }
+
     return (
         <>
             <ScreenContainer>
@@ -55,9 +70,7 @@ const HomePage = () => {
                         selectImageAction={selectImage}
                         selectedImage={selectedImage}
                         selectedImageUrl={selectedImageUrl}
-                        onPostButtonClick={() => {
-                            console.log("posting");
-                        }}
+                        onPostButtonClick={handleUploadImage}
                         mediaError={mediaError}
                     />
                     <Card>

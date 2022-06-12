@@ -49,7 +49,7 @@ export default ({ onTextChange, selectImageAction, selectedImage, selectedImageU
                             alignSelf: 'center',
                         }}>
                         <Input
-                            accept="video/*,image/*"
+                            accept="image/jpeg, image/png, video/mp4"
                             id="contained-button-file"
                             type="file"
                             onChange={selectImageAction}
@@ -60,7 +60,7 @@ export default ({ onTextChange, selectImageAction, selectedImage, selectedImageU
                             Select Image or Video
                         </Button>
                     </label>
-                    {mediaError ? <RedText>File size larger than 25mb</RedText> :
+                    {mediaError ? <RedText>File is too large</RedText> :
                         <p
                             style={{
                                 alignSelf: 'center',
