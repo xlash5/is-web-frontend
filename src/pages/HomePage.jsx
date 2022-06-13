@@ -7,6 +7,7 @@ import ScreenContainer from '../components/ScreenContainer'
 import NewPostCard from '../components/NewPostCard'
 import { firebaseApp } from '../api/firebase';
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import useUserData from "../hooks/useUserData";
 
 const LeftColumn = styled.div`
     display: flex;
@@ -28,12 +29,18 @@ const RightColumn = styled.div`
     `
 
 const HomePage = () => {
-    const [user, setUser] = useLocalStorage("JWT", null);
     const [newPostText, setNewPostText] = useState("");
     const [selectedImage, setSelectedImage] = useState("");
     const [selectedImageUrl, setSelectedImageUrl] = useState("");
     const [mediaError, setMediaError] = useState(false);
+    const [userData] = useUserData();
     const storage = getStorage(firebaseApp, "gs://is-web-ca.appspot.com");
+    useEffect
+        (() => {
+            console.log("userData", userData);
+        }
+            , [userData]);
+
 
     const selectImage = (e) => {
         console.log(e.target.files[0].type);
@@ -51,7 +58,7 @@ const HomePage = () => {
     }
 
     const handleUploadImage = async () => {
-        const storageRef = ref(storage, `/media/${Math.floor(Math.random() * 1000000)}${Date.now()}${selectedImage.name}`);
+        const storageRef = ref(storage, `/media/${userData._id}/${Math.floor(Math.random() * 1000000)}${Date.now()}${selectedImage.name}`);
         await uploadBytes(storageRef, selectedImage).then((snapshot) => {
             console.log('Uploaded a blob or file!');
         }).then(() => {
