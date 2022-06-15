@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import Palette from "../theme/Palette";
 import LogoutIcon from '@mui/icons-material/Logout';
+import useUserData from "../hooks/useUserData";
 
 const AppName = "My App";
 
@@ -21,6 +22,7 @@ export default ({ pages }) => {
   const navigate = useNavigate();
   const { token, logout } = useAuth();
   const [drawerState, setDrawerState] = React.useState(false);
+  const [userData] = useUserData();
 
   // const handleOpenNavMenu = (event) => {
   //   setAnchorElNav(event.currentTarget);
@@ -74,7 +76,7 @@ export default ({ pages }) => {
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
-              {token && (
+              {userData && (
                 <Button
                   onClick={logout}
                   sx={{
@@ -116,7 +118,7 @@ export default ({ pages }) => {
                 {page.label}
               </Button>
             ))}
-            {token && (
+            {userData && (
               <Button
                 key={"logout"}
                 onClick={logout}

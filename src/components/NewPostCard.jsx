@@ -49,7 +49,7 @@ export default ({ onTextChange, selectImageAction, selectedImage, selectedImageU
                             alignSelf: 'center',
                         }}>
                         <Input
-                            accept="image/jpeg, image/png, video/mp4"
+                            accept="image/jpeg, image/png, image/jpg, video/mp4"
                             id="contained-button-file"
                             type="file"
                             onChange={selectImageAction}
