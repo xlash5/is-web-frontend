@@ -11,6 +11,7 @@ import useUserData from "../hooks/useUserData";
 import PostCard from "../components/PostCard";
 import useAuth from "../hooks/useAuth";
 import createPost from '../api/createPost';
+import getPosts from '../api/getPosts';
 
 const LeftColumn = styled.div`
     display: flex;
@@ -38,12 +39,22 @@ const HomePage = () => {
     const [mediaError, setMediaError] = useState(false);
     const [userData] = useUserData();
     const { token } = useAuth();
+    const [allPosts, setAllPosts] = useState("");
 
     const storage = getStorage(firebaseApp, "gs://is-web-ca.appspot.com");
     useEffect(() => {
         console.log("userData", userData);
     }
         , [userData]);
+
+    const fetchPosts = async () => {
+        const result = await getPosts(token);
+        setAllPosts(result);
+    }
+
+    useEffect(() => {
+        fetchPosts();
+    }, [])
 
 
     const selectImage = (e) => {
@@ -112,34 +123,20 @@ const HomePage = () => {
                     <Card>
                         <h1>{newPostText}</h1>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Donec euismod, nisl eget consectetur sagittis, nisl
-                            nisi consectetur nisi, euismod consectetur nisi
-                            nisi euismod.
+                            {allPosts && JSON.stringify(allPosts)}
                         </p>
                     </Card>
-                    <PostCard
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Donec euismod, nisl eget consectetur sagittis, nisl
-                        nisi consectetur nisi, euismod consectetur nisi
-                        nisi euismod."
-                        media="https://firebasestorage.googleapis.com/v0/b/is-web-ca.appspot.com/o/media%2F62992141c3e454466a3290b3%2F4136411655331306833First.mp4?alt=media&token=7fa2bfc1-2371-4f7d-8148-bf2bb75c13b1"
-                    />
-                    <PostCard
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Donec euismod, nisl eget consectetur sagittis, nisl
-                        nisi consectetur nisi, euismod consectetur nisi
-                        nisi euismod."
-                    />
-                    <PostCard
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Donec euismod, nisl eget consectetur sagittis, nisl
-                        nisi consectetur nisi, euismod consectetur nisi
-                        nisi euismod."
-                        media="https://firebasestorage.googleapis.com/v0/b/is-web-ca.appspot.com/o/media%2F62992141c3e454466a3290b3%2F6351211655331057267Git.png?alt=media&token=5c1b8281-c409-4fe6-9a04-edea644b97ca"
-                    />
+                    {allPosts && allPosts.map((post) => {
+                        return <PostCard
+                            key={post._id}
+                            text={post.text}
+                            media={post.media}
+                            date={post.date}
+                        />
+                    })}
+
                 </LeftColumn>
-                <RightColumn>
+                {/* <RightColumn>
                     <Card>
                         <h1>Left Column</h1>
                         <p>
@@ -158,7 +155,7 @@ const HomePage = () => {
                             nisi euismod.
                         </p>
                     </Card>
-                </RightColumn>
+                </RightColumn> */}
             </ScreenContainer>
 
         </>

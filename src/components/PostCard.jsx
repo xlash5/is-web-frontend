@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const PostCard = ({ text, media }) => {
+const PostCard = ({ text, media, date }) => {
     const checkIfImage = (url) => {
         if (url.includes("jpg") || url.includes("png") || url.includes("jpeg")) {
             return true;
@@ -22,6 +22,9 @@ const PostCard = ({ text, media }) => {
                     <video
                         style={{ width: '100%' }}
                         src={media} controls></video>)}
+            <p>
+                {Date(date)}
+            </p>
         </Card>
     )
 }
