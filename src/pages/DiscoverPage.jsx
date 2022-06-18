@@ -5,6 +5,8 @@ import useAuth from '../hooks/useAuth';
 import Button from "@mui/material/Button";
 import followUser from '../api/followUser';
 import { useNavigate } from "react-router-dom";
+import getNumberOfFollowers from '../api/getNumberOfFollowers';
+import UserCard from '../components/UserCard';
 
 const DiscoverPage = () => {
     const [users, setUsers] = useState([]);
@@ -13,6 +15,7 @@ const DiscoverPage = () => {
 
     const getUsers = async () => {
         const res = await getDiscoverPeople(token);
+
         setUsers(res);
     }
 
@@ -28,18 +31,11 @@ const DiscoverPage = () => {
     return (
         <>
             {users && users.map(user => (
-                <Card key={user.id} style={{ padding: '50px', margin: '40px' }}>
-                    <h1>{user.username}</h1>
-                    <h2>following: {user.following.length}</h2>
-                    <Button
-                        type="button"
-                        fullWidth
-                        variant="contained"
-                        onClick={() => followAction(user.username)}
-                    >
-                        Follow
-                    </Button>
-                </Card>))}
+                <UserCard
+                    key={user._id}
+                    user={user}
+                    buttonAction={() => followAction(user.username)}
+                    buttonText="Follow" />))}
 
         </>
     )

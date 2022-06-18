@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Card from '../components/Card';
 import useAuth from '../hooks/useAuth';
 import getFollowingPeople from '../api/getFollowingPeople';
 import unfollowUser from '../api/unfollowUser';
-import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import UserCard from '../components/UserCard';
 
 const FollowingPage = () => {
   const [users, setUsers] = useState([]);
@@ -26,22 +25,14 @@ const FollowingPage = () => {
   }
 
   return (
-    //create div with grid layout
     <>
 
       {users && users.map(user => (
-        <Card key={user._id} style={{ padding: '50px', margin: '40px' }}>
-          <h1>{user.username}</h1>
-          <h2>following: {user.following.length}</h2>
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            onClick={() => unfollowAction(user.username)}
-          >
-            Unfollow
-          </Button>
-        </Card>))}
+        <UserCard
+          key={user._id}
+          user={user}
+          buttonAction={() => unfollowAction(user.username)}
+          buttonText="Unfollow" />))}
 
     </>
   )
