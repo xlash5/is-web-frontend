@@ -35,7 +35,8 @@ export default () => {
       <AppBar
         pages={[
           { label: "Home", path: "/" },
-          { label: "Profile", path: "/profile" }
+          { label: "Following", path: "/following" },
+          { label: "Discover", path: "/discover" },
         ]}
       />
       {

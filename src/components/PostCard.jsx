@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const PostCard = ({ text, media, date }) => {
+const PostCard = ({ text, media, date, author }) => {
     const checkIfImage = (url) => {
         if (url.includes("jpg") || url.includes("png") || url.includes("jpeg")) {
             return true;
@@ -11,7 +11,7 @@ const PostCard = ({ text, media, date }) => {
 
     return (
         <Card>
-            <p>
+            <p style={{ fontFamily: 'monospace', fontSize: '2em' }}>
                 {text}
             </p>
             {media &&
@@ -22,9 +22,17 @@ const PostCard = ({ text, media, date }) => {
                     <video
                         style={{ width: '100%' }}
                         src={media} controls></video>)}
-            <p>
-                {Date(date)}
-            </p>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <p style={{ fontFamily: 'monospace', fontSize: '1em' }}>
+                    {Date(date)}
+                </p>
+                <div style={{ width: '50px' }}>
+
+                </div>
+                <p style={{ fontFamily: 'monospace', fontSize: '1em' }}>
+                    Posted by: {author}
+                </p>
+            </div>
         </Card>
     )
 }

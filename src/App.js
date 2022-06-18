@@ -7,6 +7,9 @@ import ProtectedLayout from "./components/ProtectedLayout";
 import HomeLayout from "./components/HomeLayout";
 import "./styles.css";
 import Screen from "./components/Screen";
+import FollowingPage from "./pages/FollowingPage";
+import DiscoverPage from "./pages/DiscoverPage";
+
 
 export default function App() {
   return (
@@ -18,7 +21,8 @@ export default function App() {
 
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="profile" element={<ProfilePage />} />
+        <Route path="following" element={<FollowingPage />} />
+        <Route path="discover" element={<DiscoverPage />} />
       </Route>
 
       <Route path="*" element={<Screen>

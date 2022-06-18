@@ -132,6 +132,7 @@ const HomePage = () => {
                             text={post.text}
                             media={post.media}
                             date={post.date}
+                            author={post.author}
                         />
                     })}
 
