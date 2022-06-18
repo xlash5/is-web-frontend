@@ -14,6 +14,10 @@ export const AuthProvider = ({ children }) => {
       const response = await api.post("/api/v1/register", {
         username: data.username,
         password: data.password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       if (response.status === 201) {
         await login(data);
@@ -28,6 +32,10 @@ export const AuthProvider = ({ children }) => {
       const response = await api.post("/api/v1/login", {
         username: data.username,
         password: data.password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       if (response.status === 200) {
         setToken(response.data.access_token);
@@ -41,6 +49,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     api.post("/api/v1/logout", {}, {
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       }
     }).then(res => {
