@@ -29,7 +29,7 @@ const RedText = styled('p')({
     borderColor: '#ff0000',
 });
 
-export default ({ onTextChange, selectImageAction, selectedImage, selectedImageUrl, onPostButtonClick, mediaError }) => {
+export default ({ onTextChange, selectImageAction, selectedImage, selectedImageUrl, onPostButtonClick, mediaError, text }) => {
     return (
         <NewPostContainer>
             <Card>
@@ -72,6 +72,7 @@ export default ({ onTextChange, selectImageAction, selectedImage, selectedImageU
                             {selectedImageUrl ? selectedImage.name : "No media selected"}
                         </p>}
                     <Button
+                        disabled={text === ""}
                         variant="contained"
                         onClick={onPostButtonClick}
                         sx={{

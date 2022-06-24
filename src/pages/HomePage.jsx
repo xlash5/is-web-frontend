@@ -116,18 +116,13 @@ const HomePage = () => {
                 <LeftColumn>
                     <NewPostCard
                         onTextChange={(e) => setNewPostText(e.target.value)}
+                        text={newPostText}
                         selectImageAction={selectImage}
                         selectedImage={selectedImage}
                         selectedImageUrl={selectedImageUrl}
                         onPostButtonClick={handleUploadImage}
                         mediaError={mediaError}
                     />
-                    <Card>
-                        <h1>{newPostText}</h1>
-                        <p>
-                            {allPosts && JSON.stringify(allPosts)}
-                        </p>
-                    </Card>
                     {allPosts && allPosts.map((post) => {
                         return <PostCard
                             key={post._id}
