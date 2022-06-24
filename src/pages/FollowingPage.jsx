@@ -25,7 +25,7 @@ const FollowingPage = () => {
   }
 
   return (
-    <>
+    <div style={{ padding: '10px' }}>
 
       {users && users.map(user => (
         <UserCard
@@ -34,7 +34,7 @@ const FollowingPage = () => {
           buttonAction={() => unfollowAction(user.username)}
           buttonText="Unfollow" />))}
 
-    </>
+    </div>
   )
 }
 

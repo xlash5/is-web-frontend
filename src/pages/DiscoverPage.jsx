@@ -29,7 +29,7 @@ const DiscoverPage = () => {
     }
 
     return (
-        <>
+        <div style={{ padding: '10px' }}>
             {users && users.map(user => (
                 <UserCard
                     key={user._id}
@@ -37,7 +37,7 @@ const DiscoverPage = () => {
                     buttonAction={() => followAction(user.username)}
                     buttonText="Follow" />))}
 
-        </>
+        </div>
     )
 }
 

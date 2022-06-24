@@ -12,6 +12,7 @@ import PostCard from "../components/PostCard";
 import useAuth from "../hooks/useAuth";
 import createPost from '../api/createPost';
 import getPosts from '../api/getPosts';
+import useWeatherWithLocation from '../hooks/useWeatherWithLocation';
 
 const LeftColumn = styled.div`
     display: flex;
@@ -40,6 +41,7 @@ const HomePage = () => {
     const [userData] = useUserData();
     const { token } = useAuth();
     const [allPosts, setAllPosts] = useState("");
+    const [weatherData] = useWeatherWithLocation();
 
     const storage = getStorage(firebaseApp, "gs://is-web-ca.appspot.com");
     useEffect(() => {
@@ -137,26 +139,20 @@ const HomePage = () => {
                     })}
 
                 </LeftColumn>
-                {/* <RightColumn>
-                    <Card>
-                        <h1>Left Column</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Donec euismod, nisl eget consectetur sagittis, nisl
-                            nisi consectetur nisi, euismod consectetur nisi
-                            nisi euismod.
-                        </p>
+                <RightColumn>
+                    <Card style={{
+                        textAlign: 'center'
+                    }}>
+                        {weatherData ?
+                            (<>
+                                <h1>{weatherData.sys.country}</h1>
+                                <h2>{weatherData.name}</h2>
+                                <img src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} />
+                                <h2>{weatherData.weather[0].main}</h2>
+                            </>)
+                            : <h1>Fetching weather data...</h1>}
                     </Card>
-                    <Card>
-                        <h1>Left Column</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Donec euismod, nisl eget consectetur sagittis, nisl
-                            nisi consectetur nisi, euismod consectetur nisi
-                            nisi euismod.
-                        </p>
-                    </Card>
-                </RightColumn> */}
+                </RightColumn>
             </ScreenContainer>
 
         </>

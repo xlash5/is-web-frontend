@@ -28,23 +28,16 @@ const UserCard = ({ user, buttonAction, buttonText }) => {
 
     return (
         <Card style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginLeft: '5vw',
-            marginRight: '5vw',
-            marginTop: '10px',
-            paddingBottom: '20px',
+            display: 'inline-block',
+            textAlign: 'center'
+
         }}>
             <h1 style={{ fontFamily: 'monospace', fontSize: '2em' }}>{user.username}</h1>
             {/* make this div row space evenly */}
             <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                width: '80%',
-                marginTop: '10px',
+                display: 'inline-block',
+                textAlign: 'center',
+                width: '100%'
             }}>
                 <h2 style={hStyle}>following: {user.following.length}</h2>
                 <h2 style={hStyle}>followers: {followers.length}</h2>

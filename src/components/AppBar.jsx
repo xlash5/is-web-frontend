@@ -35,7 +35,7 @@ export default ({ pages }) => {
   };
 
   return (
-    <MuiAppBar position="static" style={{ backgroundColor: '#2F8F9D' }}>
+    <MuiAppBar position="static" style={{ backgroundColor: Palette.fourth }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
