@@ -144,6 +144,7 @@ const HomePage = () => {
                                 <h2>{weatherData.name}</h2>
                                 <img src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} />
                                 <h2>{weatherData.weather[0].main}</h2>
+                                <p>{weatherData.main.temp.toFixed(1)} °C</p>
                             </>)
                             : <h1>Fetching weather data...</h1>}
                     </Card>

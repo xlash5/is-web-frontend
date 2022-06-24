@@ -10,17 +10,17 @@ const PostCard = ({ text, media, date, author }) => {
     }
 
     return (
-        <Card>
+        <Card style={{ textAlign: "center" }}>
             <p style={{ fontFamily: 'monospace', fontSize: '2em' }}>
                 {text}
             </p>
             {media &&
                 (checkIfImage(media) ?
                     <img
-                        style={{ width: '100%' }}
+                        style={{ maxHeight: '550px', maxWidth: '100%' }}
                         src={media} alt="IMAGE" /> :
                     <video
-                        style={{ width: '100%' }}
+                        style={{ maxHeight: '550px', maxWidth: '100%' }}
                         src={media} controls></video>)}
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <p style={{ fontFamily: 'monospace', fontSize: '1em' }}>

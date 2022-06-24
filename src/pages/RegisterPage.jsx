@@ -12,23 +12,51 @@ export default () => {
     const { register } = useAuth();
     const [loginError, setLoginError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
+    const [buttonDisabled, setButtonDisabled] = React.useState(true);
+    const [password, setPassword] = React.useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        if (data.get("passwordRepeat") !== data.get("password")) {
+        if (data.get("passwordRepeat") !== password) {
             setPasswordError(true);
             return
         }
         register({
             username: data.get("username"),
-            password: data.get("password")
+            password: password
         }).then((res) => {
             if (res == 0) {
                 setLoginError(true)
             }
         });
     };
+
+    React.useEffect(() => {
+        var strength = 0;
+        if (password.match(/[a-z]+/)) {
+            strength += 1;
+        }
+        if (password.match(/[A-Z]+/)) {
+            strength += 1;
+        }
+        if (password.match(/[0-9]+/)) {
+            strength += 1;
+        }
+        if (password.match(/[$@#&!]+/)) {
+            strength += 1;
+        }
+        if (password.length >= 8) {
+            strength += 1;
+        }
+        if (strength === 5) {
+            setButtonDisabled(false);
+        } else {
+            setButtonDisabled(true);
+        }
+
+
+    }, [password])
 
     return (
         <Container component="main" maxWidth="xs">
@@ -66,6 +94,7 @@ export default () => {
                         label="Password"
                         type="password"
                         id="password"
+                        onChange={(e) => { setPassword(e.target.value) }}
                         error={passwordError}
                         helperText={passwordError ? "Passwords do not match!" : ""}
                     />
@@ -85,9 +114,11 @@ export default () => {
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
+                        disabled={buttonDisabled}
                     >
                         Register
                     </Button>
+                    <p style={{ textAlign: 'center' }}>Your password should be minimum 8 characters and contain at least one capital letter, one underscore charater, one special charater, and one number.</p>
                 </Box>
             </Box>
         </Container>

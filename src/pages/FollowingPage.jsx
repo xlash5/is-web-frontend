@@ -25,7 +25,7 @@ const FollowingPage = () => {
   }
 
   return (
-    <div style={{ padding: '10px' }}>
+    <div style={{ padding: '10px', textAlign: 'center' }}>
 
       {users && users.map(user => (
         <UserCard
