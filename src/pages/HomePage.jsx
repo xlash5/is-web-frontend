@@ -130,6 +130,8 @@ const HomePage = () => {
                             media={post.media}
                             date={post.date}
                             author={post.author}
+                            comments={post.comments}
+                            postId={post._id}
                         />
                     })}
 
