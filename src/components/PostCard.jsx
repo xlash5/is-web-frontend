@@ -100,7 +100,7 @@ const PostCard = ({ text, media, date, author, postId, comments, addCommentName 
                     variant="contained"
                     onClick={sendComment}
                     sx={{
-                        marginLeft: '10px',
+                        marginTop: '10px',
                         alignSelf: 'center',
                     }}
                     endIcon={<SendIcon />}>Send Comment</Button>
