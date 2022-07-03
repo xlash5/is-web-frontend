@@ -132,6 +132,7 @@ const HomePage = () => {
                             author={post.author}
                             comments={post.comments}
                             postId={post._id}
+                            addCommentName={userData.username}
                         />
                     })}
 

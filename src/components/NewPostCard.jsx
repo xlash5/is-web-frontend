@@ -35,7 +35,7 @@ export default ({ onTextChange, selectImageAction, selectedImage, selectedImageU
             <Card>
                 <h2 style={{ textAlign: 'center' }}>New Post</h2>
                 <TextField
-                    label="Text"
+                    label="New Post Text"
                     multiline
                     rows={4}
                     fullWidth

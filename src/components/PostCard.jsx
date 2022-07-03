@@ -3,10 +3,13 @@ import Card from './Card';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import SendIcon from '@mui/icons-material/Send';
-import Palette from '../theme/Palette';
+import addComment from '../api/addComment';
+import useAuth from "../hooks/useAuth";
+import CommentCard from './CommentCard';
 
-const PostCard = ({ text, media, date, author, postId, comments }) => {
+const PostCard = ({ text, media, date, author, postId, comments, addCommentName }) => {
     const [textField, setTextField] = useState("");
+    const { token } = useAuth();
 
     const handleTextChange = (e) => {
         setTextField(e.target.value);
@@ -20,7 +23,12 @@ const PostCard = ({ text, media, date, author, postId, comments }) => {
     }
 
     const sendComment = () => {
-        console.log(textField);
+        addComment(token, textField, addCommentName, postId).then(() => {
+            window.location.reload();
+        }).catch((err) => {
+            console.log(err);
+        }
+        )
     }
 
     return (
@@ -56,26 +64,12 @@ const PostCard = ({ text, media, date, author, postId, comments }) => {
                         return b.date - a.date;
                     }).map((comment) => {
                         return (
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                margin: '10px',
-                                border: '1px solid',
-                                borderRadius: '5px',
-                                padding: '10px',
-                                backgroundColor: Palette.first,
-                            }}>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <p style={{ fontFamily: 'monospace', fontSize: '1em', fontWeight: 'bold' }}>
-                                        {comment.author}:
-                                    </p>
-                                    <p style={{ fontFamily: 'monospace', fontSize: '1em' }}>
-                                        {comment.text}
-                                    </p>
-                                </div>
-                                <p>{new Date(comment.date).toLocaleString()}</p>
-                            </div>
+                            <CommentCard
+                                author={comment.author}
+                                text={comment.text}
+                                date={comment.date}
+                            />
+
                         )
                     })
                 }
@@ -95,14 +89,12 @@ const PostCard = ({ text, media, date, author, postId, comments }) => {
             </div>
             <div>
                 <TextField
-                    label="Text"
+                    label="Post New Comment"
                     multiline
                     rows={4}
                     fullWidth
                     onChange={handleTextChange}
                 />
-                <p>{textField}</p>
-                <p>{postId}</p>
                 <Button
                     disabled={textField === ""}
                     variant="contained"
