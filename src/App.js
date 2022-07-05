@@ -9,6 +9,7 @@ import "./styles.css";
 import Screen from "./components/Screen";
 import FollowingPage from "./pages/FollowingPage";
 import DiscoverPage from "./pages/DiscoverPage";
+import PasswordPage from "./pages/PasswordPage";
 
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="following" element={<FollowingPage />} />
         <Route path="discover" element={<DiscoverPage />} />
+        <Route path="password" element={<PasswordPage />} />
       </Route>
 
       <Route path="*" element={<Screen>

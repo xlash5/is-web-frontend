@@ -27,6 +27,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const changePassword = async (data) => {
+    try {
+      const response = await api.post("/api/v1/changePassword", {
+        password: data.password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        navigate("/");
+        return 1;
+      }
+    } catch (error) {
+      return 0;
+    }
+  }
+
   const login = async (data) => {
     try {
       const response = await api.post("/api/v1/login", {
@@ -65,7 +84,8 @@ export const AuthProvider = ({ children }) => {
       token,
       login,
       logout,
-      register
+      register,
+      changePassword
     }),
     [token]
   );

@@ -37,6 +37,7 @@ export default () => {
           { label: "Home", path: "/" },
           { label: "Following", path: "/following" },
           { label: "Discover", path: "/discover" },
+          { label: "Password", path: "/password" },
         ]}
       />
       {
