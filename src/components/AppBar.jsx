@@ -16,7 +16,7 @@ import Palette from "../theme/Palette";
 import LogoutIcon from '@mui/icons-material/Logout';
 import useUserData from "../hooks/useUserData";
 
-const AppName = "My App";
+const AppName = "DBSocial";
 
 export default ({ pages }) => {
   const navigate = useNavigate();
